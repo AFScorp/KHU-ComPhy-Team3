@@ -106,5 +106,3 @@ ylabel("Position Error (m)")
 legend(loc='upper right')
 title("RK4 Position Error of Asteroid (dt=1hr vs dt=1min)")
 show()
-
-
