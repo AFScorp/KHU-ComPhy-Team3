@@ -3,12 +3,14 @@ from constants import G
 
 # 일반 함수 정의
 # Runge-Kutta method, 4th
-def RKM4(x, y0, function):
+def RKM4(x:np.ndarray, y0:np.ndarray, fn):
 	'''
 	Input:
-	x: array-like, 시간 구간
-	y0: array-like, 초기조건
-	function: function, 미분방정식의 음함수꼴
+	x: 시간 구간
+
+	y0: 초기조건
+
+	fn: 미분방정식의 음함수꼴
 
 	초기조건에 대하여 구간 위에서 4차 Runge-Kutta 방법으로 방정식을 해결합니다.
 
@@ -16,7 +18,7 @@ def RKM4(x, y0, function):
 	y: ndarray, 해의 함수값
 	'''
 	def eval(t,p):
-		return function(t,p)
+		return fn(t,p)
 	
 	y=np.zeros((len(x),*y0.shape))
 	y[0]=y0
@@ -33,10 +35,8 @@ def RKM4(x, y0, function):
 	
 	return y
 
-def norm(x):
+def norm(x:np.ndarray):
 	'''
-	x: ndarray
-
 	x의 제곱근 노름을 구합니다.
 	'''
 	res=0.0
@@ -44,7 +44,16 @@ def norm(x):
 		res+=x_i**2
 	return np.sqrt(res)
 
-def gravitation(p1,p2,m2):
+def squaresum(x:np.ndarray):
+	'''
+	x의 제곱 노름을 구합니다.
+	'''
+	res=0.0
+	for x_i in x:
+		res+=x_i**2
+	return res
+
+def gravitation(p1:np.ndarray,p2:np.ndarray,m2:float):
 	pos_rel=p1-p2
 	dist=norm(pos_rel)
 	if dist <= 0.0001:
