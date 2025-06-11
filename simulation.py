@@ -1,17 +1,18 @@
+# 시뮬레이션 자체를 담당하는 모듈입니다.
+
 import numpy as np
 from numpy import radians, sqrt
 from pylab import plot,xlabel,ylabel,show,scatter,legend,title
 from generalfns import *
 from constants import *
-import time
+#import time
 
-time_start = time.time()
-
+#time_start = time.time()
 
 # 미분방정식: r''=-G*m_i*(r-r_i)/dist_i (아인슈타인 표기 사용됨)
-# suggestion: 추후 일반화를 하게 된다면 array를 3층으로 만들어서 위치 텐서, 속도 텐서, 가속도 텐서 등으로 분리하면 좋을 것 같습니다.
+# suggestion: 추후 일반화를 하게 된다면 array를 3층으로 만들어서 위치 텐서, 속도 텐서, 가속도 텐서 등으로 분리해도 좋을 것 같습니다.
 def f(t,p):
-	origin = np.array([0,0])
+	origin = np.array([0,0]) #태양
 	e_pos = p[0]
 	m_pos = p[1]
 	a_pos = p[2]
@@ -25,8 +26,17 @@ def f(t,p):
 
 	return np.array([e_vel, m_vel, a_vel, m_acc, e_acc, a_acc], float)
 
-#시뮬레이션의 시간 구간 지정
-T = year #1 year = 365.25636 day
+# 외부에서 실행할 수 있도록 시뮬레이션 자체를 메서드화
+def simulate(p0, T, dt):
+	'''
+	p0: array-like, 초기 조건 벡터/텐서
+	T: float, 시뮬레이션의 총 주기
+	dt: float, 시뮬레이션의 각 프레임별 시간 간격
+	'''
+	t_array = np.arange(0, T, dt)
+	return RKM4(t_array, p0, f)
+
+'''T = year #1 year = 365.25636 day
 dt1 = hour
 dt2 = minute	###
 t_i,t_f = 0.0,T
@@ -59,7 +69,7 @@ p = np.array([e_pos, m_pos, a_pos, e_vel, m_vel, a_vel], float)
 result_hour = RKM4(t_list1, p, f)[:,2]
 result_minute = RKM4(t_list2, p, f)[:,2]
 
-# 오차 계산산
+# 오차 계산
 error = np.zeros_like(result_hour)
 
 len_min = len(result_minute)
@@ -76,4 +86,6 @@ xlabel("Time (s)")
 ylabel("Position Error (m)")
 legend(loc='upper right')
 title("RK4 Position Error of Asteroid (dt=1hr vs dt=1min)")
+#print("소요시간:", time.time()-time_start, "초")
 show()
+'''
