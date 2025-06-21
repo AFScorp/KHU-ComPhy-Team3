@@ -9,10 +9,11 @@ from constants import *
 # 미분방정식: r''=-G*m_i*(r-r_i)/dist_i (아인슈타인 표기 사용됨)
 # suggestion: 추후 일반화를 하게 된다면 array를 3층으로 만들어서 위치 텐서, 속도 텐서, 가속도 텐서 등으로 분리해도 좋을 것 같습니다.
 
+'''
 class SimulationManager:
 	def init(self):
 		return
-
+'''
 
 def f(t,p):
 	origin = np.array([0,0]) #태양
