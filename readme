@@ -1,0 +1,5 @@
+의존성 구조:
+constants
+generalfns
+    simulation
+        \week
