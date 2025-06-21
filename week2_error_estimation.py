@@ -23,8 +23,8 @@ m_vel = np.array(0, np.sqrt(G * e_M / m_radius)) + e_vel
 a_x0=float(input("Asteroid initial x(AU): "))*AU
 a_y0=float(input("Asteroid initial y(AU): "))*AU
 
-a_speed=float(input("Asteroid initial speed(km/s), ex)earth speed = 29.78 km/s"))*1000
-a_theta=np.radians(float(input("Asteroid initial theta(dgree)")))
+a_speed=float(input("Asteroid initial speed(km/s)\nex)earth speed = 29.78 km/s\n: "))*1000
+a_theta=np.radians(float(input("Asteroid initial direction(deg): ")))
 
 a_pos = np.array([a_x0, a_y0])
 a_vel = a_speed * np.array([np.sin(a_theta), np.sin(a_theta)])
