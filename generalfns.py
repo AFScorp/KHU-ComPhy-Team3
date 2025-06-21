@@ -60,3 +60,13 @@ def gravitation(p1:np.ndarray,p2:np.ndarray,m2:float):
 		return 0
 	else:
 		return -G*m2*pos_rel/dist**3
+	
+# 좌표계 변환
+def GlobalToLocal(pos, origin):
+	'''
+	pos: 3Darray, 대상의 전역 좌표
+	origin: 3Darray, 원점의 전역 좌표
+
+	origin에 대한 pos의 상대좌표를 구합니다.
+	'''
+	return pos-origin
