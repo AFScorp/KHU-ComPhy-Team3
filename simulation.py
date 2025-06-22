@@ -15,8 +15,13 @@ class SimulationManager:
 		return
 '''
 
+def gravitation(p1:np.ndarray,p2:np.ndarray,m2:float):
+	pos_rel=p1-p2
+	dist = norm(pos_rel)
+	return -(G*m2/dist**3)*pos_rel
+
 def f(t,p):
-	origin = np.array([0,0]) #태양
+	origin = np.array([0,0],dtype='float64') #태양
 	e_pos = p[0]
 	m_pos = p[1]
 	a_pos = p[2]
@@ -28,7 +33,7 @@ def f(t,p):
 	m_acc = gravitation(m_pos, origin, s_M) + gravitation(m_pos, e_pos, e_M)
 	a_acc = gravitation(a_pos, origin, s_M) + gravitation(a_pos, e_pos, e_M) + gravitation(a_pos, m_pos, m_M)
 
-	return np.array([e_vel, m_vel, a_vel, m_acc, e_acc, a_acc], float)
+	return np.array([e_vel, m_vel, a_vel, e_acc, m_acc, a_acc], dtype='float64')
 
 # 외부에서 실행할 수 있도록 시뮬레이션 자체를 메서드화
 def simulate(p0:np.ndarray, T_start:float, T_end:float, dt:float):
@@ -37,7 +42,7 @@ def simulate(p0:np.ndarray, T_start:float, T_end:float, dt:float):
 
 	T: float, 시뮬레이션의 총 주기(s)
 
-	dt: float, 시뮬레이션의 각 프레임별 시간 간격(s)
+	dt: float, 시뮬레이션 스텝 시간 간격(s)
 	'''
 	res=RKM4(np.arange(T_start,T_end,dt), p0, f)
 	return res

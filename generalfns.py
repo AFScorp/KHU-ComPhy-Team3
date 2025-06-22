@@ -20,7 +20,7 @@ def RKM4(x:np.ndarray, y0:np.ndarray, fn):
 	def eval(t,p):
 		return fn(t,p)
 	
-	y=np.zeros((len(x),*y0.shape))
+	y=np.zeros((len(x),*y0.shape),dtype=float)
 	y[0]=y0
 	h=x[1]-x[0] #시뮬레이션의 시간 구간이 일정하다고 가정
 
@@ -52,14 +52,6 @@ def squaresum(x:np.ndarray):
 	for x_i in x:
 		res+=x_i**2
 	return res
-
-def gravitation(p1:np.ndarray,p2:np.ndarray,m2:float):
-	pos_rel=p1-p2
-	dist=norm(pos_rel)
-	if dist <= 0.0001:
-		return 0
-	else:
-		return -G*m2*pos_rel/dist**3
 	
 # 좌표계 변환
 def GlobalToLocal(pos, origin):

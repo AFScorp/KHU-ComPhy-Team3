@@ -18,7 +18,7 @@ e_vel = np.array([0,np.sqrt(G*s_M*(1+e_ecc)/(AU*(1-e_ecc)))])
 
 #달
 m_pos = np.array([m_radius, 0]) + e_pos
-m_vel = np.array(0, np.sqrt(G * e_M / m_radius)) + e_vel
+m_vel = np.array([0, np.sqrt(G * e_M / m_radius)]) + e_vel
 
 #소행성 변수
 a_x0=float(input("Asteroid initial x(AU): "))*AU
@@ -28,14 +28,16 @@ a_speed=float(input("Asteroid initial speed(km/s)\nex)earth speed = 29.78 km/s)\
 a_theta=np.radians(float(input("Asteroid initial direction(deg): ")))
 
 a_pos = np.array([a_x0, a_y0])
-a_vel = a_speed * np.array([np.sin(a_theta), np.sin(a_theta)])
+a_vel = a_speed * np.array([np.cos(a_theta), np.sin(a_theta)])
 
 # 초기값 벡터
-p = np.array([e_pos, m_pos, a_pos, e_vel, m_vel, a_vel], float)
+p = np.array([e_pos, m_pos, a_pos, e_vel, m_vel, a_vel], dtype='float64')
 
 # 4th order RKM
-result_hour = simulate(p, 0, T, dt1)[:,2]
-result_minute = simulate(p, 0, T, dt2)[:,2]
+res = simulate(p, 0, T, dt1)
+pos_e = res[:,0]
+pos_m = res[:,1]
+pos_a = res[:,2]
 
 '''
 # 오차 계산
@@ -51,8 +53,9 @@ for i in range(len(result_hour)-1):
 
 #시각화
 scatter(0, 0, color='yellow', s=200, label='Sun')
-plot(result_hour[:,0], result_hour[:,1], 'r', label='hr')
-plot(result_minute[:,0], result_minute[:,1], 'b', label='min')
+plot(pos_a[:,0],pos_a[:,1], 'k', label='Asteroid')
+plot(pos_e[:,0],pos_e[:,1], 'b', label='Earth')
+plot(pos_m[:,0],pos_m[:,1], 'r', label='Moon')
 xlabel("x(m)")
 ylabel("y(m)")
 legend(loc='upper right')
