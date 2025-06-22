@@ -59,8 +59,8 @@ a_x_i=float(input("Asteroid initial x(AU)"))*1.496e11
 a_y_i=float(input("Asteroid initial y(AU)"))*1.496e11
 a_v_i=float(input("Asteroid initial speed(km/s), ex)earth speed = 29.78 km/s"))*1000
 a_theta_i=radians(float(input("Asteroid initial theta(dgree)")))
-a_vx_i=a_v_i*sin(a_theta_i)
-a_vy_i=a_v_i*-cos(a_theta_i)
+a_vx_i=a_v_i*cos(a_theta_i)
+a_vy_i=a_v_i*sin(a_theta_i)
 a_px1=[a_x_i]
 a_py1=[a_y_i]
 a_px2=[a_x_i]
